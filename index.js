@@ -7,6 +7,7 @@ const port = process.env.SERVER_PORT || 3000;
 
 //========Importing the customer router========
 const customerRoute = require("./route/CustomerRoute");
+const userRoute = require("./route/UserRoute");
 //====================================
 
 const app = express(); //Creates an instance of the Express application
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Connects to the mongoDB customer_crud running on localhost port 27017
-// mongoose.connect method returns a promise, and then the callback is executed after the connection is extablished
+// mongoose.connect method returns a promise, and then the callback is executed after the connection is established
 mongoose.connect("mongodb://127.0.0.1:27017/customer_crud").then(() => {
   app.listen(3000, () => {
     console.log(`API started & running on port ${port}`);
@@ -32,3 +33,4 @@ mongoose.connect("mongodb://127.0.0.1:27017/customer_crud").then(() => {
 // });
 
 app.use("/api/v1/customers", customerRoute); // http://localhost:3000/api/v1/customers/save-customer(POST)
+app.use("/api/v1/users", userRoute); // http://localhost:3000/api/v1/users/signup
